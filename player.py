@@ -79,14 +79,25 @@ class Player:
         arm_swing = math.sin(self.walk_animation) * 30 if self.is_walking else 0
         leg_swing = math.sin(self.walk_animation) * 45 if self.is_walking else 0
         
-        # Draw head
-        head_y = self.body_height + self.head_size / 2
-        self.draw_cube_part(0, head_y, 0, self.head_size, self.head_size, self.head_size, (0.9, 0.7, 0.6))  # Skin color
+        # Draw legs
+        leg_y = self.leg_height / 2
+
+        # Left leg
+        glPushMatrix()
+        glTranslatef(-self.leg_width/2, leg_y, 0)
+        glRotatef(-leg_swing, 1, 0, 0)
+        glTranslatef(0, -self.leg_height/2, 0)
+        self.draw_cube_part(0, 0, 0, self.leg_width, self.leg_height, self.leg_width, (0.0, 0.0, 0.5))  # Dark blue pants
+        glPopMatrix()
         
-        # Draw body
-        body_y = self.body_height / 2
-        self.draw_cube_part(0, body_y, 0, self.body_width, self.body_height, self.body_width, (0.0, 0.5, 1.0))  # Blue shirt
-        
+        # Right leg
+        glPushMatrix()
+        glTranslatef(self.leg_width/2, leg_y, 0)
+        glRotatef(leg_swing, 1, 0, 0)
+        glTranslatef(0, -self.leg_height/2, 0)
+        self.draw_cube_part(0, 0, 0, self.leg_width, self.leg_height, self.leg_width, (0.0, 0.0, 0.5))
+        glPopMatrix()
+
         # Draw arms
         arm_y = self.body_height - self.arm_height / 2
         
@@ -105,24 +116,14 @@ class Player:
         glTranslatef(0, -self.arm_height/2, 0)
         self.draw_cube_part(0, 0, 0, self.arm_width, self.arm_height, self.arm_width, (0.9, 0.7, 0.6))
         glPopMatrix()
+
+        # Draw body
+        body_y = self.body_height / 2
+        self.draw_cube_part(0, body_y, 0, self.body_width, self.body_height, self.body_width, (0.0, 0.5, 1.0))  # Blue shirt
+
+        # Draw head
+        head_y = self.body_height + self.head_size / 2
+        self.draw_cube_part(0, head_y, 0, self.head_size, self.head_size, self.head_size, (0.9, 0.7, 0.6))  # Skin color
         
-        # Draw legs
-        leg_y = self.leg_height / 2
-        
-        # Left leg
-        glPushMatrix()
-        glTranslatef(-self.leg_width/2, leg_y, 0)
-        glRotatef(-leg_swing, 1, 0, 0)
-        glTranslatef(0, -self.leg_height/2, 0)
-        self.draw_cube_part(0, 0, 0, self.leg_width, self.leg_height, self.leg_width, (0.0, 0.0, 0.5))  # Dark blue pants
-        glPopMatrix()
-        
-        # Right leg
-        glPushMatrix()
-        glTranslatef(self.leg_width/2, leg_y, 0)
-        glRotatef(leg_swing, 1, 0, 0)
-        glTranslatef(0, -self.leg_height/2, 0)
-        self.draw_cube_part(0, 0, 0, self.leg_width, self.leg_height, self.leg_width, (0.0, 0.0, 0.5))
-        glPopMatrix()
-        
+      
         glPopMatrix()
